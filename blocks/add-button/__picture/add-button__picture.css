@@ -1,0 +1,11 @@
+.add-buttton__picture {
+width: 16px;
+height: 16px;
+}
+
+@media only screen and (min-width: 880px) {
+  .add-buttton__picture {
+    width: 22px;
+height: 22px;
+  }
+}

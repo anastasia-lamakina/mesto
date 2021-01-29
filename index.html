@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./pages/index.css" />
+  <title>Место</title>
+</head>
+
+<body class="body">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Логотип сайта" />
+  </header>
+
+  <main class="content">
+    <section class="profile">
+      <div class="profile__container">
+        <img class="profile__picture" src="./images/profile-picture.jpg" alt="Фотография профиля" />
+        <div class="profile__text-container">
+          <div class="profile__name-container">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <div class="edit-button" onclick="openPopup()">
+              <img class="edit-button__picture" src="./images/edit-button-picture.svg" alt="Карандаш Редактирования" />
+            </div>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+      </div>
+      <div class="add-button">
+        <img class="add-button__picture" src="./images/add-button-picture.svg" alt="Плюс чтобы добавить фото" />
+      </div>
+    </section>
+    <section class="destinations">
+      <ul class="destinations__list">
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/karachaevo.jpg" alt="Карачеевск" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Карачаево-Черкессия</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Гора Эльбрус</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/dombai.jpg" alt="Домбай" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Домбай</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Гора Эльбрус</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/dombai.jpg" alt="Домбай" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Домбай</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+
+        <li class="destination-card">
+          <img class="destination-card__picture" src="./images/karachaevo.jpg" alt="Карачеевск" />
+          <div class="destination-card__text-zone">
+            <h2 class="destination-card__text">Карачаевск</h2>
+            <img class="destination-card__like-button" src="./images/like-button.svg" alt="Сердечко Лайк" />
+          </div>
+        </li>
+      </ul>
+
+    </section>
+    <div class="popup">
+      <div class="popup__container">
+        <button onclick="closePopup()" class="popup__close">
+        </button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input class="popup__name-input" placeholder="Жак-Ив Кусто" name="profileName">
+        <input class="popup__occupation-input" placeholder="Исследователь океана" name="profileOccupation">
+        <input class="popup__button" type="submit" value="Сохранить">
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <script src="./index.js"></script>
+</body>
+
+</html>
