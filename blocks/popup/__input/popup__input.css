@@ -1,8 +1,7 @@
-.popup__name-input {
+.popup__input {
   all: unset;
   width: 238px;
   margin: 0 22px 0 22px;
-  padding: 75px 0 13px 0;
   font-family: Inter, Arial, "sans-serif";
   font-style: normal;
   font-weight: normal;
@@ -12,13 +11,23 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  padding: 30px 0 13px 0;
 }
 
+
+.popup__input:first-child {
+  padding-top: 75px;
+}
+
+
 @media only screen and (min-width: 880px) {
-  .popup__name-input {
+  .popup__input {
     width: 358px;
     margin: 0 36px 0 36px;
-    padding: 54px 0 13px 0;
-
   }
+
+  .popup__input:first-child {
+    padding-top: 54px;
+  }
+
 }

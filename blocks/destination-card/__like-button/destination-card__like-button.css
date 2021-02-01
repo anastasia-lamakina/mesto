@@ -1,11 +1,18 @@
-.destination-card__like-button {}
+.destination-card__like-button {
+  all: unset;
+  min-width: 22px;
+  min-height: 19px;
+  background-image: url(../../../images/like-button.svg);
+  background-size: 22px 19px;
+  background-repeat: no-repeat;
+}
 
 .destination-card__like-button:hover {
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .destination-card__like-button:active {
   opacity: 1;
-  content: url(../../../images/like-button-active.svg);
+  background-image: url(../../../images/like-button-active.svg);
 }
