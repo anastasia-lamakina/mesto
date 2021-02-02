@@ -7,18 +7,14 @@ let popupOccupationInput = document.querySelector(
 let profileName = document.querySelector(".profile__name");
 let profileOccupation = document.querySelector(".profile__subtitle");
 let profileEditButton = document.querySelector(".profile__edit-button");
+let popupForm = document.querySelector(".popup__container");
 
-let urlParameters = new URLSearchParams(window.location.search);
-let profileNameParameter = urlParameters.get("profile-name");
-let profileOccupationParameter = urlParameters.get("profile-occupation");
-
-if (profileNameParameter) {
-  profileName.textContent = profileNameParameter;
-}
-
-if (profileOccupationParameter) {
-  profileOccupation.textContent = profileOccupationParameter;
-}
+let submitValues = function (event) {
+  event.preventDefault();
+  profileName.textContent = popupNameInput.value;
+  profileOccupation.textContent = popupOccupationInput.value;
+  closePopup();
+};
 
 let closePopup = function () {
   popup.classList.remove("popup_opened");
@@ -32,5 +28,7 @@ let openPopup = function () {
 };
 
 profileEditButton.addEventListener("click", openPopup);
+
+popupForm.addEventListener("submit", submitValues);
 
 popupClose.addEventListener("click", closePopup);

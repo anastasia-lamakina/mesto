@@ -11,15 +11,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  display: inline-block;
+  max-width: 282px;
 }
 
 @media only screen and (min-width: 880px) {
   .profile__subtitle {
+    max-width: 336px;
     padding-bottom: 0;
     padding-top: 16px;
     text-align: start;
     font-size: 18px;
     line-height: 22px;
-
   }
 }
