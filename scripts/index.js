@@ -13,12 +13,15 @@ const destinationCardTemplate = document.querySelector(
   "#destination-card__template"
 ).content;
 const likeButtons = document.querySelectorAll(".destination-card__like-button");
+const popupFormTemplate = document.querySelector("#popup-form__template")
+  .content;
+const popupEntry = document.querySelector("#popup__entry");
+const newPictureButton = document.querySelector(".profile__add-button");
 
 const initialCards = [
   {
-    name: "Архыз",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+    name: "Borat",
+    link: "https://pbs.twimg.com/profile_images/1979623485/borat_400x400.jpg",
   },
   {
     name: "Челябинская область",
@@ -26,31 +29,30 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
   },
   {
-    name: "Иваново",
+    name: "Kombat wombat",
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+      "https://pbs.twimg.com/profile_images/753504723878154240/7Rq7PEho_400x400.jpg",
   },
   {
-    name: "Камчатка",
+    name: "Wombat",
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+      "https://y8t9r4g5.stackpathcdn.com/wp-content/uploads/2019/01/Wombats-Facts.jpg",
   },
   {
-    name: "Холмогорский район",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+    name: "Batat",
+    link: "https://image.dnevnik.hr/media/images/920x695/Mar2019/61657849.jpg",
   },
   {
-    name: "Байкал",
+    name: "Potat",
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+      "https://cdn4.vectorstock.com/i/1000x1000/88/13/cute-happy-smiling-funny-potato-vector-18518813.jpg",
   },
 ];
 
 const renderDestinationCards = () => {
   destinationCardList.textContent = "";
 
-  initialCards.forEach((destination) => {
+  initialCards.forEach((destination, index) => {
     const destinationCard = destinationCardTemplate
       .querySelector(".destination-card")
       .cloneNode(true);
@@ -62,23 +64,12 @@ const renderDestinationCards = () => {
     destinationCard
       .querySelector(".destination-card__like-button")
       .addEventListener("click", handleLikeClick);
+    destinationCard
+      .querySelector(".destination-card__delete-button")
+      .addEventListener("click", () => handleDeleteDestinationClick(index));
 
     destinationCardList.append(destinationCard);
   });
-};
-
-const submitValues = (event) => {
-  event.preventDefault();
-  profileName.textContent = popupNameInput.value;
-  profileOccupation.textContent = popupOccupationInput.value;
-  closePopup(profileEditPopup);
-};
-
-const handleProfileEdit = () => {
-  popupNameInput.value = profileName.innerText;
-  popupOccupationInput.value = profileOccupation.innerText;
-
-  openPopup(profileEditPopup);
 };
 
 const closePopup = (popup) => {
@@ -93,10 +84,108 @@ const handleLikeClick = (event) => {
   event.target.classList.toggle("destination-card__like-button_active");
 };
 
-profileEditButton.addEventListener("click", handleProfileEdit);
+const handleDeleteDestinationClick = (index) => {
+  initialCards.splice(index, 1);
+  renderDestinationCards();
+};
 
-popupForm.addEventListener("submit", submitValues);
+const createFormPopup = ({ title, submitButtonText, inputs, onFormSubmit }) => {
+  const popupForm = popupFormTemplate.querySelector(".popup").cloneNode(true);
 
-popupClose.addEventListener("click", () => closePopup(profileEditPopup));
+  popupForm.querySelector(".popup__title").textContent = title;
+
+  inputs.forEach(({ name, placeholder }) => {
+    const inputElement = document.createElement("input");
+    inputElement.className = "popup__input";
+    inputElement.name = name;
+    inputElement.placeholder = placeholder;
+    popupForm.querySelector(".popup__container").append(inputElement);
+  });
+
+  const submitButton = document.createElement("input");
+  submitButton.className = "popup__button";
+  submitButton.type = "submit";
+  submitButton.value = submitButtonText;
+
+  popupForm.querySelector(".popup__container").append(submitButton);
+
+  popupForm
+    .querySelector(".popup__close")
+    .addEventListener("click", () => closePopup(popupForm));
+
+  popupEntry.append(popupForm);
+
+  const handlePopupOpen = (...defaultValues) => {
+    if (defaultValues.length) {
+      popupForm.querySelectorAll(".popup__input").forEach((input, index) => {
+        input.value = defaultValues[index];
+      });
+    }
+
+    openPopup(popupForm);
+  };
+
+  popupForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const values = [
+      ...event.target.querySelectorAll(".popup__input"),
+    ].map((input) => ({ [input.name]: input.value }));
+    onFormSubmit(Object.assign({}, ...values));
+    closePopup(popupForm);
+  });
+
+  return {
+    open: handlePopupOpen,
+  };
+};
+
+const editProfilePopup = createFormPopup({
+  title: "Редактировать профиль",
+  submitButtonText: "Сохранить",
+  inputs: [
+    {
+      name: "profile-name",
+      placeholder: "Жак-Ив Кусто",
+    },
+    {
+      name: "profile-occupation",
+      placeholder: "Исследователь океана",
+    },
+  ],
+  onFormSubmit: (values) => {
+    profileName.textContent = values["profile-name"];
+    profileOccupation.textContent = values["profile-occupation"];
+  },
+});
+
+const newPicturePopup = createFormPopup({
+  title: "Новое место",
+  submitButtonText: "Создать",
+  inputs: [
+    {
+      name: "picture-name",
+      placeholder: "Название",
+    },
+    {
+      name: "picture-url",
+      placeholder: "Ссылка на картинку",
+    },
+  ],
+  onFormSubmit: (values) => {
+    console.log(values);
+    initialCards.unshift({
+      name: values["picture-name"],
+      link: values["picture-url"],
+    });
+
+    renderDestinationCards();
+  },
+});
+
+profileEditButton.addEventListener("click", () =>
+  editProfilePopup.open(profileName.innerText, profileOccupation.innerText)
+);
+
+newPictureButton.addEventListener("click", () => newPicturePopup.open());
 
 renderDestinationCards();

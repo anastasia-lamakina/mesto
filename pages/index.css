@@ -30,6 +30,7 @@
 @import url(../blocks/destination-card/destination-card.css);
 @import url(../blocks/destination-card/__picture/destination-card__picture.css);
 @import url(../blocks/destination-card/__text-zone/destination-card__text-zone.css);
+@import url(../blocks/destination-card/__delete-button/destination-card__delete-button.css);
 @import url(../blocks/destination-card/__like-button/destination-card__like-button.css);
 @import url(../blocks/destination-card/__like-button/_active/destination-card__like-button_active.css);
 @import url(../blocks/destination-card/__text/destination-card__text.css);
