@@ -15,6 +15,8 @@ const destinationCardTemplate = document.querySelector(
 const likeButtons = document.querySelectorAll(".destination-card__like-button");
 const popupFormTemplate = document.querySelector("#popup-form__template")
   .content;
+const popupPictureTemplate = document.querySelector("#popup-picture__template")
+  .content;
 const popupEntry = document.querySelector("#popup__entry");
 const newPictureButton = document.querySelector(".profile__add-button");
 
@@ -61,6 +63,12 @@ const renderDestinationCards = () => {
       destination.name;
     destinationCard.querySelector(".destination-card__picture").src =
       destination.link;
+    destinationCard
+      .querySelector(".destination-card__picture")
+      .addEventListener("click", () =>
+        picturePreviewPopup.open(destination.name, destination.link)
+      );
+    destination.link;
     destinationCard
       .querySelector(".destination-card__like-button")
       .addEventListener("click", handleLikeClick);
@@ -139,6 +147,29 @@ const createFormPopup = ({ title, submitButtonText, inputs, onFormSubmit }) => {
   };
 };
 
+const createPicturePopup = () => {
+  const popupPicture = popupPictureTemplate
+    .querySelector(".popup")
+    .cloneNode(true);
+
+  popupPicture
+    .querySelector(".popup__close")
+    .addEventListener("click", () => closePopup(popupPicture));
+
+  popupEntry.append(popupPicture);
+
+  const handlePopupOpen = (name, picture) => {
+    popupPicture.querySelector(".popup__subtitle").textContent = name;
+    popupPicture.querySelector(".popup__image").src = picture;
+
+    openPopup(popupPicture);
+  };
+
+  return {
+    open: handlePopupOpen,
+  };
+};
+
 const editProfilePopup = createFormPopup({
   title: "Редактировать профиль",
   submitButtonText: "Сохранить",
@@ -181,6 +212,8 @@ const newPicturePopup = createFormPopup({
     renderDestinationCards();
   },
 });
+
+const picturePreviewPopup = createPicturePopup();
 
 profileEditButton.addEventListener("click", () =>
   editProfilePopup.open(profileName.innerText, profileOccupation.innerText)

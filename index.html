@@ -37,7 +37,18 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div id="popup__entry"></div>
+  <div id="popup__entry">
+
+  </div>
+  <template id="popup-picture__template">
+    <div class="popup">
+      <div class="popup__picture-container">
+        <button class="popup__close" type="button"></button>
+        <img class="popup__image" />
+        <p class="popup__subtitle"></p>
+      </div>
+    </div>
+  </template>
   <template id="popup-form__template">
     <div class="popup">
       <form class="popup__container" name="profile-form">
