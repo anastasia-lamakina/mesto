@@ -47,7 +47,7 @@ const initialCards = [
   {
     name: "Potat",
     link:
-      "https://cdn4.vectorstock.com/i/1000x1000/88/13/cute-happy-smiling-funny-potato-vector-18518813.jpg",
+      "https://memeguy.com/photos/images/i-photoshopped-a-potato-426452.jpg",
   },
 ];
 
