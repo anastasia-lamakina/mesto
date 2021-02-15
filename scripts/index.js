@@ -19,6 +19,11 @@ const popupPictureImage = popupPicture.querySelector(".popup__image");
 const popupNew = document.querySelector(".popup_new");
 const popupNewName = popupNew.querySelector("[name=picture-name]");
 const popupNewPicture = popupNew.querySelector("[name=picture-url]");
+const popupPictureClose = popupPicture.querySelector(".popup__close");
+const popupPictureEdit = popupEdit.querySelector(".popup__close");
+const popupEditForm = popupEdit.querySelector("[name=profile-form]");
+const popupNewClose = popupNew.querySelector(".popup__close");
+const popupPictureForm = popupNew.querySelector("[name=picture-form]");
 
 const createCard = (destination) => {
   const destinationCard = destinationCardTemplate.cloneNode(true);
@@ -102,28 +107,12 @@ const handleNewPopupOpen = () => {
 };
 
 profileEditButton.addEventListener("click", handleEditPopupOpen);
-
 newPictureButton.addEventListener("click", handleNewPopupOpen);
-
-popupPicture
-  .querySelector(".popup__close")
-  .addEventListener("click", () => closePopup(popupPicture));
-
-popupEdit
-  .querySelector(".popup__close")
-  .addEventListener("click", () => closePopup(popupEdit));
-
-popupEdit
-  .querySelector("[name=profile-form]")
-  .addEventListener("submit", handleEditPopupSubmit);
-
-popupNew
-  .querySelector(".popup__close")
-  .addEventListener("click", () => closePopup(popupNew));
-
-popupNew
-  .querySelector("[name=picture-form]")
-  .addEventListener("submit", handleNewPopupSubmit);
+popupPictureClose.addEventListener("click", () => closePopup(popupPicture));
+popupPictureEdit.addEventListener("click", () => closePopup(popupEdit));
+popupNewClose.addEventListener("click", () => closePopup(popupNew));
+popupEditForm.addEventListener("submit", handleEditPopupSubmit);
+popupPictureForm.addEventListener("submit", handleNewPopupSubmit);
 
 initialCards.forEach((destination) => {
   destinationCardList.append(createCard(destination));
