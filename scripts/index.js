@@ -66,6 +66,7 @@ const handleLikeClick = (event) => {
 const handlePicturePopupOpen = ({ name, link }) => {
   popupPictureSubtitle.textContent = name;
   popupPictureImage.src = link;
+  popupPictureImage.alt = name;
 
   openPopup(popupPicture);
 };
