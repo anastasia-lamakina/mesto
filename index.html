@@ -37,27 +37,33 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div id="popup__entry">
-
+  <div class="popup popup__edit">
+    <form class="popup__container" name="profile-form">
+      <button class="popup__close" type="button">
+      </button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__input" placeholder="Жак-Ив Кусто" name="profile-name">
+      <input class="popup__input" placeholder="Исследователь океана" name="profile-occupation">
+      <input class="popup__button" type="submit" value="Сохранить">
+    </form>
   </div>
-  <template id="popup-picture__template">
-    <div class="popup">
-      <div class="popup__picture-container">
-        <button class="popup__close" type="button"></button>
-        <img class="popup__image" />
-        <p class="popup__subtitle"></p>
-      </div>
+  <div class="popup popup__new">
+    <form class="popup__container" name="picture-form">
+      <button class="popup__close" type="button">
+      </button>
+      <h2 class="popup__title">Новое место</h2>
+      <input class="popup__input" placeholder="Название" name="picture-name">
+      <input class="popup__input" placeholder="Ссылка на картинку" name="picture-url">
+      <input class="popup__button" type="submit" value="Создать">
+    </form>
+  </div>
+  <div class="popup popup__picture">
+    <div class="popup__picture-container">
+      <button class="popup__close" type="button"></button>
+      <img class="popup__image" />
+      <p class="popup__subtitle"></p>
     </div>
-  </template>
-  <template id="popup-form__template">
-    <div class="popup">
-      <form class="popup__container" name="profile-form">
-        <button class="popup__close" type="button">
-        </button>
-        <h2 class="popup__title"></h2>
-      </form>
-    </div>
-  </template>
+  </div>
   <template id="destination-card__template">
     <li class="destination-card">
       <button class="destination-card__delete-button" type="button"></button>
@@ -68,7 +74,7 @@
       </div>
     </li>
   </template>
-  <script src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
