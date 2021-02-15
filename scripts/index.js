@@ -8,15 +8,15 @@ const destinationCardTemplate = document
   .querySelector("#destination-card__template")
   .content.querySelector(".destination-card");
 const newPictureButton = document.querySelector(".profile__add-button");
-const popupEdit = document.querySelector(".popup__edit");
+const popupEdit = document.querySelector(".popup_edit");
 const popupEditName = popupEdit.querySelector("[name=profile-name]");
 const popupEditOccupation = popupEdit.querySelector(
   "[name=profile-occupation]"
 );
-const popupPicture = document.querySelector(".popup__picture");
+const popupPicture = document.querySelector(".popup_picture");
 const popupPictureSubtitle = popupPicture.querySelector(".popup__subtitle");
 const popupPictureImage = popupPicture.querySelector(".popup__image");
-const popupNew = document.querySelector(".popup__new");
+const popupNew = document.querySelector(".popup_new");
 const popupNewName = popupNew.querySelector("[name=picture-name]");
 const popupNewPicture = popupNew.querySelector("[name=picture-url]");
 
