@@ -1,5 +1,3 @@
-import initialCards from "./cards.js";
-
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__subtitle");
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -22,6 +20,10 @@ const popupNewPicture = popupNew.querySelector("[name=picture-url]");
 const popupPictureClose = popupPicture.querySelector(".popup__close");
 const popupPictureEdit = popupEdit.querySelector(".popup__close");
 const popupEditForm = popupEdit.querySelector("[name=profile-form]");
+const popupEditFormNameInput = popupEdit.querySelector("[name=profile-name]");
+const popupEditFormOccupationInput = popupEdit.querySelector(
+  "[name=profile-occupation]"
+);
 const popupNewClose = popupNew.querySelector(".popup__close");
 const popupPictureForm = popupNew.querySelector("[name=picture-form]");
 
@@ -47,13 +49,6 @@ const createCard = (destination) => {
     );
 
   return destinationCard;
-};
-
-const mapInputToKeyValue = (target) => {
-  const values = [...target.querySelectorAll(".popup__input")].map((input) => ({
-    [input.name]: input.value,
-  }));
-  return Object.assign({}, ...values);
 };
 
 const closePopup = (popup) => {
@@ -85,24 +80,21 @@ const handleEditPopupOpen = () => {
 
 const handleEditPopupSubmit = (event) => {
   event.preventDefault();
-  const values = mapInputToKeyValue(event.target);
-  profileName.textContent = values["profile-name"];
-  profileOccupation.textContent = values["profile-occupation"];
+  profileName.textContent = popupEditFormNameInput.value;
+  profileOccupation.textContent = popupEditFormOccupationInput.value;
   closePopup(popupEdit);
 };
 
 const handleNewPopupSubmit = (event) => {
   event.preventDefault();
-  const values = mapInputToKeyValue(event.target);
   destinationCardList.prepend(
-    createCard({ name: values["picture-name"], link: values["picture-url"] })
+    createCard({ name: popupNewName.value, link: popupNewPicture.value })
   );
   closePopup(popupNew);
 };
 
 const handleNewPopupOpen = () => {
-  popupNewName.value = "";
-  popupNewPicture.value = "";
+  popupPictureForm.reset();
   openPopup(popupNew);
 };
 

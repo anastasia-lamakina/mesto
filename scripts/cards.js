@@ -28,5 +28,3 @@ const initialCards = [
       "https://memeguy.com/photos/images/i-photoshopped-a-potato-426452.jpg",
   },
 ];
-
-export default initialCards;
