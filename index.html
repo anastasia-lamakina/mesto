@@ -38,23 +38,41 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
   <div class="popup popup_edit">
-    <form class="popup__container" name="profile-form">
+    <form class="popup__container" name="profile-form" novalidate>
       <button class="popup__close" type="button">
       </button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__input" placeholder="Жак-Ив Кусто" name="profile-name">
-      <input class="popup__input" placeholder="Исследователь океана" name="profile-occupation">
-      <input class="popup__button" type="submit" value="Сохранить">
+      <fieldset class="popup__fieldset">
+        <label class="popup__field">
+          <input class="popup__input" placeholder="Жак-Ив Кусто" name="profile-name" required minlength="2"
+            maxlength="40">
+          <span id="profile-name-error" class="popup__span"></span>
+        </label>
+        <label class="popup__field">
+          <input class="popup__input" placeholder="Исследователь океана" name="profile-occupation" required
+            minlength="2" maxlength="200">
+          <span id="profile-occupation-error" class="popup__span"></span>
+        </label>
+        <input class="popup__button" type="submit" value="Сохранить">
+      </fieldset>
     </form>
   </div>
   <div class="popup popup_new">
-    <form class="popup__container" name="picture-form">
+    <form class="popup__container" name="picture-form" novalidate>
       <button class="popup__close" type="button">
       </button>
       <h2 class="popup__title">Новое место</h2>
-      <input class="popup__input" placeholder="Название" name="picture-name">
-      <input class="popup__input" placeholder="Ссылка на картинку" name="picture-url">
-      <input class="popup__button" type="submit" value="Создать">
+      <fieldset class="popup__fieldset">
+        <label class="popup__field">
+          <input class="popup__input" placeholder="Название" name="picture-name" required minlength="2" maxlength="30">
+          <span id="picture-name-error" class="popup__span"></span>
+        </label>
+        <label class="popup__field">
+          <input class="popup__input" placeholder="Ссылка на картинку" name="picture-url" required type="url">
+          <span id="picture-url-error" class="popup__span"></span>
+        </label>
+        <input class="popup__button" type="submit" value="Создать">
+      </fieldset>
     </form>
   </div>
   <div class="popup popup_picture">
@@ -75,6 +93,7 @@
     </li>
   </template>
   <script src="./scripts/cards.js"></script>
+  <script src="./scripts/validation.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 

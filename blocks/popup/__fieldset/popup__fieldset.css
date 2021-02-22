@@ -1,0 +1,5 @@
+.popup__fieldset {
+  all: unset;
+  display: grid;
+  justify-content: center;
+}

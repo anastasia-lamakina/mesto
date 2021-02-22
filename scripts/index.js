@@ -58,6 +58,23 @@ const closePopup = (popup) => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+
+  const handleCloseClick = function () {
+    closePopup(popup);
+    popup.removeEventListener("click", this);
+    document.removeEventListener("keydown", handleKeydown);
+  };
+
+  const handleKeydown = function (event) {
+    if (event.key === "Escape") {
+      closePopup(popup);
+      document.removeEventListener("keydown", this);
+      popup.removeEventListener("click", handleCloseClick);
+    }
+  };
+
+  popup.addEventListener("click", handleCloseClick);
+  document.addEventListener("keydown", handleKeydown);
 };
 
 const handleLikeClick = (event) => {
@@ -105,7 +122,9 @@ popupPictureClose.addEventListener("click", () => closePopup(popupPicture));
 popupPictureEdit.addEventListener("click", () => closePopup(popupEdit));
 popupNewClose.addEventListener("click", () => closePopup(popupNew));
 popupEditForm.addEventListener("submit", handleEditPopupSubmit);
+popupEditForm.addEventListener("click", (event) => event.stopPropagation());
 popupPictureForm.addEventListener("submit", handleNewPopupSubmit);
+popupPictureForm.addEventListener("click", (event) => event.stopPropagation());
 
 initialCards.forEach((destination) => {
   destinationCardList.append(createCard(destination));
