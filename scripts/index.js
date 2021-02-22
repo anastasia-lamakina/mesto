@@ -30,15 +30,16 @@ const popupPictureForm = popupNew.querySelector("[name=picture-form]");
 const createCard = (destination) => {
   const destinationCard = destinationCardTemplate.cloneNode(true);
 
+  const destinationCardPicture = destinationCard.querySelector(
+    ".destination-card__picture"
+  );
+  destinationCardPicture.src = destination.link;
+  destinationCardPicture.alt = destination.name;
+  destinationCardPicture.addEventListener("click", () =>
+    handlePicturePopupOpen(destination)
+  );
   destinationCard.querySelector(".destination-card__text").textContent =
     destination.name;
-  destinationCard.querySelector(".destination-card__picture").src =
-    destination.link;
-  destinationCard.querySelector(".destination-card__picture").alt =
-    destination.name;
-  destinationCard
-    .querySelector(".destination-card__picture")
-    .addEventListener("click", () => handlePicturePopupOpen(destination));
   destinationCard
     .querySelector(".destination-card__like-button")
     .addEventListener("click", handleLikeClick);
