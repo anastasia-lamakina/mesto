@@ -52,11 +52,11 @@ const createCard = (destination) => {
   return destinationCard;
 };
 
-const handleCloseClick = () => {
+const handleCloseClick = (popup) => {
   closePopup(popup);
 };
 
-const handleKeydown = (event) => {
+const handleKeydown = (event, popup) => {
   if (event.key === "Escape") {
     closePopup(popup);
   }
@@ -64,8 +64,8 @@ const handleKeydown = (event) => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  popup.addEventListener("click", handleCloseClick);
-  document.addEventListener("keydown", handleKeydown);
+  popup.addEventListener("click", () => handleCloseClick(popup));
+  document.addEventListener("keydown", (event) => handleKeydown(event, popup));
 };
 
 const closePopup = (popup) => {
