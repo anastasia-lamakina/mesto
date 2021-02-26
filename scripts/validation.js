@@ -39,19 +39,17 @@ const setEventListeners = (formElement, config) => {
       toggleButtonState(inputList, buttonElement, config);
     });
   });
+
+  formElement.addEventListener("reset", () => {
+    buttonElement.disabled = true;
+  });
 };
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((formElement) => {
-    const fieldsetList = Array.from(
-      formElement.querySelectorAll(config.fieldsetSelector)
-    );
-
-    fieldsetList.forEach((fieldSet) => {
-      setEventListeners(fieldSet, config);
-    });
+    setEventListeners(formElement, config);
   });
 };
 

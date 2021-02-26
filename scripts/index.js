@@ -52,29 +52,26 @@ const createCard = (destination) => {
   return destinationCard;
 };
 
-const closePopup = (popup) => {
-  popup.classList.remove("popup_opened");
+const handleCloseClick = () => {
+  closePopup(popup);
+};
+
+const handleKeydown = (event) => {
+  if (event.key === "Escape") {
+    closePopup(popup);
+  }
 };
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-
-  const handleCloseClick = function () {
-    closePopup(popup);
-    popup.removeEventListener("click", this);
-    document.removeEventListener("keydown", handleKeydown);
-  };
-
-  const handleKeydown = function (event) {
-    if (event.key === "Escape") {
-      closePopup(popup);
-      document.removeEventListener("keydown", this);
-      popup.removeEventListener("click", handleCloseClick);
-    }
-  };
-
   popup.addEventListener("click", handleCloseClick);
   document.addEventListener("keydown", handleKeydown);
+};
+
+const closePopup = (popup) => {
+  popup.classList.remove("popup_opened");
+  popup.removeEventListener("click", handleCloseClick);
+  document.removeEventListener("keydown", handleKeydown);
 };
 
 const handleLikeClick = (event) => {
