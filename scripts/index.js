@@ -122,6 +122,7 @@ popupEditForm.addEventListener("submit", handleEditPopupSubmit);
 popupEditForm.addEventListener("click", (event) => event.stopPropagation());
 popupPictureForm.addEventListener("submit", handleNewPopupSubmit);
 popupPictureForm.addEventListener("click", (event) => event.stopPropagation());
+popupPictureImage.addEventListener("click", (event) => event.stopPropagation());
 
 initialCards.forEach((destination) => {
   destinationCardList.append(createCard(destination));

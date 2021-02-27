@@ -2,3 +2,7 @@
   max-width: 70vw;
   max-height: 70vh;
 }
+
+.popup__image:hover {
+  cursor: default;
+}
