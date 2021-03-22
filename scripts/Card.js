@@ -1,6 +1,4 @@
-const popupPicture = document.querySelector(".popup_picture");
-const popupPictureSubtitle = popupPicture.querySelector(".popup__subtitle");
-const popupPictureImage = popupPicture.querySelector(".popup__image");
+import { handlePreviewPictureOpen } from "./index.js";
 
 export class Card {
   constructor(name, link, cardSelector) {
@@ -35,43 +33,9 @@ export class Card {
     return this._element;
   }
 
-  _handleCloseClick = (popup) => {
-    this._closePopup(popup);
-  };
-
-  _handleKeydown = (event, popup) => {
-    if (event.key === "Escape") {
-      this._closePopup(popup);
-    }
-  };
-
-  _openPopup(popup) {
-    popup.classList.add("popup_opened");
-
-    popup.addEventListener("click", () => this._handleCloseClick(popup));
-    document.addEventListener("keydown", (event) =>
-      this._handleKeydown(event, popup)
-    );
-  }
-
-  _closePopup(popup) {
-    popup.classList.remove("popup_opened");
-
-    popup.removeEventListener("click", this._handleCloseClick);
-    document.removeEventListener("keydown", this._handleKeydown);
-  }
-
   _handleLikeClick = (event) => {
     event.stopPropagation();
     event.target.classList.toggle("destination-card__like-button_active");
-  };
-
-  _handlePicturePopupOpen = () => {
-    popupPictureSubtitle.textContent = this._name;
-    popupPictureImage.src = this._link;
-    popupPictureImage.alt = this._name;
-
-    this._openPopup(popupPicture);
   };
 
   _setEventListeners() {
@@ -86,8 +50,9 @@ export class Card {
         event.target.closest(".destination-card").remove();
       });
 
-    this._element.addEventListener("click", () => {
-      this._handlePicturePopupOpen();
-    });
+    this._element.addEventListener(
+      "click",
+      handlePreviewPictureOpen.bind(this)
+    );
   }
 }
