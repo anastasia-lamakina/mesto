@@ -50,9 +50,8 @@ export class Card {
         event.target.closest(".destination-card").remove();
       });
 
-    this._element.addEventListener(
-      "click",
-      handlePreviewPictureOpen.bind(this)
+    this._element.addEventListener("click", () =>
+      handlePreviewPictureOpen(this._name, this._link)
     );
   }
 }

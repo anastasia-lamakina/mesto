@@ -1,6 +1,6 @@
 export class FormValidator {
   constructor(configuration, formElement) {
-    this._formSelector = formElement;
+    this._formElement = formElement;
     this._fieldsetSelector = configuration.fieldsetSelector;
     this._inputSelector = configuration.inputSelector;
     this._submitButtonSelector = configuration.submitButtonSelector;
@@ -9,7 +9,7 @@ export class FormValidator {
   }
 
   enableValidation() {
-    this._setEventListeners(document.querySelector(this._formSelector));
+    this._setEventListeners(this._formElement);
   }
 
   _setEventListeners = (formElement) => {

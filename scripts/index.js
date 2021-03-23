@@ -111,10 +111,10 @@ const handleNewPopupOpen = () => {
   openPopup(popupNew);
 };
 
-export function handlePreviewPictureOpen() {
-  popupPictureSubtitle.textContent = this._name;
-  popupPictureImage.src = this._link;
-  popupPictureImage.alt = this._name;
+export function handlePreviewPictureOpen(name, link) {
+  popupPictureSubtitle.textContent = name;
+  popupPictureImage.src = link;
+  popupPictureImage.alt = name;
   openPopup(popupPicture);
 }
 
@@ -143,6 +143,14 @@ const validatorSettings = {
   spanErrorClass: "popup__span_error",
 };
 
-["profile-form", "picture-form"].forEach((form) => {
-  new FormValidator(validatorSettings, `[name=${form}]`).enableValidation();
-});
+const popupEditFormValidator = new FormValidator(
+  validatorSettings,
+  popupEditForm
+);
+const popupPictureFormValidator = new FormValidator(
+  validatorSettings,
+  popupPictureForm
+);
+
+popupEditFormValidator.enableValidation();
+popupPictureFormValidator.enableValidation();
