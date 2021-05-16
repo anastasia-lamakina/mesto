@@ -1,9 +1,8 @@
-import { handlePreviewPictureOpen } from "./index.js";
-
 export class Card {
-  constructor(name, link, cardSelector) {
+  constructor({ name, link, handleCardClick }, cardSelector) {
     this._name = name;
     this._link = link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
@@ -25,9 +24,8 @@ export class Card {
     this._elementPicture.src = this._link;
     this._elementPicture.alt = this._name;
 
-    this._element.querySelector(
-      ".destination-card__text"
-    ).textContent = this._name;
+    this._element.querySelector(".destination-card__text").textContent =
+      this._name;
 
     this._setEventListeners();
     return this._element;
@@ -51,7 +49,7 @@ export class Card {
       });
 
     this._element.addEventListener("click", () =>
-      handlePreviewPictureOpen(this._name, this._link)
+      this._handleCardClick({ name: this._name, link: this._link })
     );
   }
 }
