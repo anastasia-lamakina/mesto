@@ -48,7 +48,7 @@ export class Card {
         event.target.closest(".destination-card").remove();
       });
 
-    this._element.addEventListener("click", () =>
+    this._elementPicture.addEventListener("click", () =>
       this._handleCardClick({ name: this._name, link: this._link })
     );
   }

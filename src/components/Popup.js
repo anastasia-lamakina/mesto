@@ -14,7 +14,14 @@ export class Popup {
   }
 
   setEventListeners() {
-    this._popup.addEventListener("click", () => this.close());
+    this._popup.addEventListener("click", (event) => {
+      if (
+        event.target.classList.contains("popup") ||
+        event.target.classList.contains("popup__close")
+      ) {
+        this.close();
+      }
+    });
   }
 
   _handleEscClose(event) {
