@@ -10,9 +10,11 @@ export class PopupWithForm extends Popup {
   open(values) {
     super.open();
 
-    Object.keys(values).forEach((key) => {
-      this._form.querySelector(`[name=${key}]`).value = values[key];
-    });
+    if (values) {
+      Object.keys(values).forEach((key) => {
+        this._form.querySelector(`[name=${key}]`).value = values[key];
+      });
+    }
   }
 
   close() {

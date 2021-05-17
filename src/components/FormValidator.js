@@ -28,6 +28,10 @@ export class FormValidator {
     });
 
     formElement.addEventListener("reset", () => {
+      inputList.forEach((inputElement) =>
+        this._hideInputError(formElement, inputElement)
+      );
+
       buttonElement.disabled = true;
     });
   };
