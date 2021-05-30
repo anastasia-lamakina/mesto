@@ -1,0 +1,8 @@
+.profile__picture-edit-icon {
+  position: absolute;
+  top: 20%;
+  height: 26px;
+  padding: calc(60px - 13px);
+  visibility: hidden;
+}
+

@@ -1,18 +1,24 @@
 export class UserInfo {
-  constructor({ nameSelector, occupationSelector }) {
+  constructor({ nameSelector, aboutSelector, avatarSelector }) {
     this._nameField = document.querySelector(nameSelector);
-    this._occupationField = document.querySelector(occupationSelector);
+    this._aboutField = document.querySelector(aboutSelector);
+    this._avatar = document.querySelector(avatarSelector);
   }
 
   getUserData() {
     return {
       name: this._nameField.innerText,
-      occupation: this._occupationField.innerText,
+      about: this._aboutField.innerText,
+      avatar: this._avatar.src,
+      _id: this._id,
     };
   }
 
-  setUserData({ name, occupation }) {
+  setUserData({ name, about, avatar, _id }) {
     this._nameField.innerText = name;
-    this._occupationField.innerText = occupation;
+    this._aboutField.innerText = about;
+    this._avatar.src = avatar;
+    this._avatar.alt = name;
+    this._id = _id;
   }
 }

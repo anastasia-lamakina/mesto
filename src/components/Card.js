@@ -1,9 +1,25 @@
 export class Card {
-  constructor({ name, link, handleCardClick }, cardSelector) {
+  constructor(
+    {
+      cardObject: { name, link, likes, _id },
+      handleCardClick,
+      handleLikeClick,
+      isOwner,
+      isLikedByCurrentUser,
+      handleCardDelete,
+    },
+    cardSelector
+  ) {
+    this._cardId = _id;
     this._name = name;
     this._link = link;
     this._handleCardClick = handleCardClick;
+    this._handleLikeClickCallback = handleLikeClick;
     this._cardSelector = cardSelector;
+    this._isOwner = isOwner;
+    this._likes = likes;
+    this._isLikedByCurrentUser = isLikedByCurrentUser;
+    this._handleCardDelete = handleCardDelete;
   }
 
   _getTemplate() {
@@ -27,13 +43,47 @@ export class Card {
     this._element.querySelector(".destination-card__text").textContent =
       this._name;
 
+    if (!this._isOwner) {
+      this._element.querySelector(
+        ".destination-card__delete-button"
+      ).style.display = "none";
+    }
+
+    if (this._likes) {
+      this._updateLikeCount();
+    }
+
+    this._updateLikeButtonStatus();
+
     this._setEventListeners();
     return this._element;
   }
 
+  _updateLikeButtonStatus() {
+    const likeButton = this._element.querySelector(
+      ".destination-card__like-button"
+    );
+    if (this._isLikedByCurrentUser) {
+      likeButton.classList.add("destination-card__like-button_active");
+    } else {
+      likeButton.classList.remove("destination-card__like-button_active");
+    }
+  }
+
+  _updateLikeCount() {
+    this._element.querySelector(".destination-card__like-count").textContent =
+      this._likes.length;
+  }
+
+  _setLikes(likes) {
+    this._likes = likes;
+    this._updateLikeCount();
+    this._updateLikeButtonStatus();
+  }
+
   _handleLikeClick = (event) => {
     event.stopPropagation();
-    event.target.classList.toggle("destination-card__like-button_active");
+    this._handleLikeClickCallback(this._cardId, this._setLikes.bind(this));
   };
 
   _setEventListeners() {
@@ -45,7 +95,9 @@ export class Card {
       .querySelector(".destination-card__delete-button")
       .addEventListener("click", (event) => {
         event.stopPropagation();
-        event.target.closest(".destination-card").remove();
+        this._handleCardDelete(this._cardId, () => {
+          event.target.closest(".destination-card").remove();
+        });
       });
 
     this._elementPicture.addEventListener("click", () =>

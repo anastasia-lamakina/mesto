@@ -1,15 +1,13 @@
-import { Popup } from "./Popup";
+import { PopupFormBaseWithLoading } from "./PopupFormBaseWithLoading";
 
-export class PopupWithForm extends Popup {
+export class PopupWithForm extends PopupFormBaseWithLoading {
   constructor({ onSubmit }, popupSelector) {
     super(popupSelector);
     this._onSubmit = onSubmit;
-    this._form = this._popup.querySelector("form");
   }
 
   open(values) {
     super.open();
-
     if (values) {
       Object.keys(values).forEach((key) => {
         this._form.querySelector(`[name=${key}]`).value = values[key];
@@ -27,7 +25,6 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
       this._onSubmit(this._getInputValues(event));
-      this.close();
     });
   }
 

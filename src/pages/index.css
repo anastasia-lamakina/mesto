@@ -18,6 +18,8 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__picture-container/profile__picture-container.css);
+@import url(../blocks/profile/__picture-edit-icon/profile__picture-edit-icon.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
 
@@ -33,6 +35,8 @@
 @import url(../blocks/destination-card/__delete-button/destination-card__delete-button.css);
 @import url(../blocks/destination-card/__like-button/destination-card__like-button.css);
 @import url(../blocks/destination-card/__like-button/_active/destination-card__like-button_active.css);
+@import url(../blocks/destination-card/__like-wrapper/destination-card__like-wrapper.css);
+@import url(../blocks/destination-card/__like-count/destination-card__like-count.css);
 @import url(../blocks/destination-card/__text/destination-card__text.css);
 
 /* popup */
