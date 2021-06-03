@@ -7,7 +7,7 @@ export class PopupFormBaseWithLoading extends Popup {
     this._popupButton = this._form.querySelector("[type='submit']");
   }
 
-  _setIsLoading() {
+  setIsLoading() {
     this._originalPopupButtonValue = this._popupButton.value;
     this._loadingCount = 1;
     this._intervalHandle = setInterval(() => {
@@ -20,7 +20,7 @@ export class PopupFormBaseWithLoading extends Popup {
     }, 250);
   }
 
-  _clearIsLoading() {
+  clearIsLoading() {
     clearInterval(this._intervalHandle);
     this._popupButton.value = this._originalPopupButtonValue;
   }

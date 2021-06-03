@@ -25,8 +25,8 @@ export const Selectors = {
   popupFieldset: ".popup__fieldset",
   popupInput: ".popup__input",
   popupButton: ".popup__button",
-  popupInputError: ".popup__input_error",
-  popupSpanError: ".popup__span_error",
+  popupInputError: "popup__input_error",
+  popupSpanError: "popup__span_error",
   avatarSelector: ".profile__picture",
 };
 

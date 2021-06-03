@@ -97,6 +97,7 @@ export class Card {
         event.stopPropagation();
         this._handleCardDelete(this._cardId, () => {
           event.target.closest(".destination-card").remove();
+          this._element = null;
         });
       });
 

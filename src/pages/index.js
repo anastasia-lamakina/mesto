@@ -25,14 +25,14 @@ const picturePopup = new PopupWithImage(Selectors.popupPicture);
 const popupNew = new PopupWithForm(
   {
     onSubmit: function ({ "picture-name": name, "picture-url": link }) {
-      this._setIsLoading();
+      this.setIsLoading();
       api
         .postNewCard({ name, link })
         .then((res) => res.json())
         .then((data) => {
           this.close();
           cardsSection.prependItem(createCard(data));
-          this._clearIsLoading();
+          this.clearIsLoading();
         });
     },
   },
@@ -42,13 +42,13 @@ const popupNew = new PopupWithForm(
 const popupEditProfile = new PopupWithForm(
   {
     onSubmit: function ({ "profile-name": name, "profile-about": about }) {
-      this._setIsLoading();
+      this.setIsLoading();
       api
         .patchUserInformation({ name, about })
         .then((res) => res.json())
         .then((data) => {
           this.close();
-          this._clearIsLoading();
+          this.clearIsLoading();
           userProfile.setUserData(data);
         });
     },
@@ -59,13 +59,13 @@ const popupEditProfile = new PopupWithForm(
 const popupEditAvatar = new PopupWithForm(
   {
     onSubmit: function ({ "profile-avatar": avatar }) {
-      this._setIsLoading();
+      this.setIsLoading();
       api
         .patchUserAvatar(avatar)
         .then((res) => res.json())
         .then((data) => {
           this.close();
-          this._clearIsLoading();
+          this.clearIsLoading();
           userProfile.setUserData(data);
         });
     },
@@ -151,17 +151,20 @@ const createCard = ({ owner, likes, ...rest }) =>
         picturePopup.open(values);
       },
       handleCardDelete: function (cardId, confirmDeleteCallback) {
-        popupConfirm.open().then(() => {
-          api
-            .deleteCard(cardId)
-            .then((res) => res.json())
-            .then(() => {
-              confirmDeleteCallback();
-            })
-            .catch(() => {
-              console.log("ошибка удаления карточки");
-            });
-        });
+        popupConfirm
+          .open()
+          .then(() => {
+            api
+              .deleteCard(cardId)
+              .then((res) => res.json())
+              .then(() => {
+                confirmDeleteCallback();
+              })
+              .catch(() => {
+                console.log("ошибка удаления карточки");
+              });
+          })
+          .catch(() => {});
       },
     },
     "#destination-card__template"
