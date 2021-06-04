@@ -17,6 +17,7 @@ import {
   API_BASE_PATH,
   profileAvatarEditIcon,
   avatarEditForm,
+  validatorSettings,
 } from "../utils/constants";
 import "./index.css";
 
@@ -24,16 +25,16 @@ const picturePopup = new PopupWithImage(Selectors.popupPicture);
 
 const popupNew = new PopupWithForm(
   {
-    onSubmit: function ({ "picture-name": name, "picture-url": link }) {
-      this.setIsLoading();
+    onSubmit: ({ "picture-name": name, "picture-url": link }) => {
+      popupNew.setIsLoading();
       api
         .postNewCard({ name, link })
-        .then((res) => res.json())
         .then((data) => {
-          this.close();
+          popupNew.close();
+          popupNew.clearIsLoading();
           cardsSection.prependItem(createCard(data));
-          this.clearIsLoading();
-        });
+        })
+        .catch((err) => console.log("Ошибка добавления карточки", err));
     },
   },
   Selectors.popupNew
@@ -41,16 +42,18 @@ const popupNew = new PopupWithForm(
 
 const popupEditProfile = new PopupWithForm(
   {
-    onSubmit: function ({ "profile-name": name, "profile-about": about }) {
-      this.setIsLoading();
+    onSubmit: ({ "profile-name": name, "profile-about": about }) => {
+      popupEditProfile.setIsLoading();
       api
         .patchUserInformation({ name, about })
-        .then((res) => res.json())
         .then((data) => {
-          this.close();
-          this.clearIsLoading();
+          popupEditProfile.close();
+          popupEditProfile.clearIsLoading();
           userProfile.setUserData(data);
-        });
+        })
+        .catch((err) =>
+          console.log("Ошибка обновления данных пользователя", err)
+        );
     },
   },
   Selectors.popupEdit
@@ -58,16 +61,16 @@ const popupEditProfile = new PopupWithForm(
 
 const popupEditAvatar = new PopupWithForm(
   {
-    onSubmit: function ({ "profile-avatar": avatar }) {
-      this.setIsLoading();
+    onSubmit: ({ "profile-avatar": avatar }) => {
+      popupEditAvatar.setIsLoading();
       api
         .patchUserAvatar(avatar)
-        .then((res) => res.json())
         .then((data) => {
-          this.close();
-          this.clearIsLoading();
+          popupEditAvatar.close();
+          popupEditAvatar.clearIsLoading();
           userProfile.setUserData(data);
-        });
+        })
+        .catch((err) => console.log("Ошибка загрузки нового аватара", err));
     },
   },
   Selectors.popupEditAvatar
@@ -92,10 +95,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 profileAvatar.addEventListener("click", () => {
-  const profile = userProfile.getUserData();
-  popupEditAvatar.open({
-    "profile-avatar": profile.avatar,
-  });
+  popupEditAvatar.open();
 });
 
 profileAvatar.onmouseenter = () => {
@@ -133,38 +133,43 @@ const createCard = ({ owner, likes, ...rest }) =>
         likes.find(({ _id: likeId }) => likeId == userProfile.getUserData()._id)
       ),
       handleLikeClick: function (cardId, updateLikesCallback) {
-        if (this._isLikedByCurrentUser) {
+        if (this.isLikedByCurrentUser) {
           api
             .deleteLikeClick(cardId)
-            .then((res) => res.json())
-            .then(({ likes }) => updateLikesCallback(likes));
-          this._isLikedByCurrentUser = false;
+            .then(({ likes }) => {
+              updateLikesCallback(likes, false);
+            })
+            .catch((err) =>
+              console.log("Ошибка удаления лайка с карточки", err)
+            );
         } else {
           api
             .putLikeClick(cardId)
-            .then((res) => res.json())
-            .then(({ likes }) => updateLikesCallback(likes));
-          this._isLikedByCurrentUser = true;
+            .then(({ likes }) => {
+              updateLikesCallback(likes, true);
+            })
+            .catch((err) =>
+              console.log("Ошибка добавления лайка карточке", err)
+            );
         }
       },
       handleCardClick: (values) => {
         picturePopup.open(values);
       },
       handleCardDelete: function (cardId, confirmDeleteCallback) {
-        popupConfirm
-          .open()
-          .then(() => {
-            api
-              .deleteCard(cardId)
-              .then((res) => res.json())
-              .then(() => {
-                confirmDeleteCallback();
-              })
-              .catch(() => {
-                console.log("ошибка удаления карточки");
-              });
-          })
-          .catch(() => {});
+        popupConfirm.open().then(() => {
+          popupConfirm.setIsLoading();
+          api
+            .deleteCard(cardId)
+            .then(() => {
+              popupConfirm.clearIsLoading();
+              popupConfirm.close();
+              confirmDeleteCallback();
+            })
+            .catch((err) => {
+              console.log("ошибка удаления карточки", err);
+            });
+        });
       },
     },
     "#destination-card__template"
@@ -179,7 +184,6 @@ const api = new Api({
 const loadUserProfileCallback = () => {
   api
     .getInitialCards()
-    .then((res) => res.json())
     .then((data) => {
       cardsSection.renderItems(data);
     })
@@ -189,7 +193,6 @@ const loadUserProfileCallback = () => {
 /** Load user profile info */
 api
   .getUserProfile()
-  .then((res) => res.json())
   .then(({ name, about, avatar, _id }) => {
     userProfile.setUserData({
       name,
@@ -199,15 +202,7 @@ api
     });
     loadUserProfileCallback();
   })
-  .catch(() => console.log("Ошибка загрузки профиля пользователя"));
-
-const validatorSettings = {
-  fieldsetSelector: Selectors.popupFieldset,
-  inputSelector: Selectors.popupInput,
-  submitButtonSelector: Selectors.popupButton,
-  inputErrorClass: Selectors.popupInputError,
-  spanErrorClass: Selectors.popupSpanError,
-};
+  .catch((err) => console.log("Ошибка загрузки профиля пользователя", err));
 
 const popupEditFormValidator = new FormValidator(
   validatorSettings,

@@ -24,14 +24,14 @@ export class PopupWithForm extends PopupFormBaseWithLoading {
     super.setEventListeners();
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      this._onSubmit(this._getInputValues(event));
+      this._onSubmit(this._getInputValues());
     });
   }
 
-  _getInputValues(event) {
+  _getInputValues() {
     const values = {};
 
-    event.target.querySelectorAll(".popup__input").forEach((input) => {
+    this._form.querySelectorAll(".popup__input").forEach((input) => {
       values[input.name] = input.value;
     });
 

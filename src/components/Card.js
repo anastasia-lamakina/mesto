@@ -18,7 +18,7 @@ export class Card {
     this._cardSelector = cardSelector;
     this._isOwner = isOwner;
     this._likes = likes;
-    this._isLikedByCurrentUser = isLikedByCurrentUser;
+    this.isLikedByCurrentUser = isLikedByCurrentUser;
     this._handleCardDelete = handleCardDelete;
   }
 
@@ -63,7 +63,7 @@ export class Card {
     const likeButton = this._element.querySelector(
       ".destination-card__like-button"
     );
-    if (this._isLikedByCurrentUser) {
+    if (this.isLikedByCurrentUser) {
       likeButton.classList.add("destination-card__like-button_active");
     } else {
       likeButton.classList.remove("destination-card__like-button_active");
@@ -75,8 +75,9 @@ export class Card {
       this._likes.length;
   }
 
-  _setLikes(likes) {
+  _setLikes(likes, isLiked) {
     this._likes = likes;
+    this.isLikedByCurrentUser = isLiked;
     this._updateLikeCount();
     this._updateLikeButtonStatus();
   }
